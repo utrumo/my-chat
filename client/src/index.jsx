@@ -4,7 +4,7 @@ import { compose, createStore } from 'redux';
 import { Provider } from 'react-redux';
 import reducer from './redux';
 import start from './websocket';
-import App from './components/app';
+import App from './containers/app';
 
 const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const store = createStore(reducer, composeEnchancers());

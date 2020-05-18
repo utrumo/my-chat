@@ -1,18 +1,28 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { createUseStyles } from 'react-jss';
 import { DataSelector } from '../redux';
 
-const App = ({ messages }) => (
-  <>
-    <h1>Hello world</h1>
-    <ul>
-      {messages.map(({ id, message }) => (
-        <li key={id}>{message}</li>
-      ))}
-    </ul>
-  </>
-);
+const useStyles = createUseStyles({
+  li: {
+    color: 'green',
+  },
+});
+
+const App = ({ messages }) => {
+  const classes = useStyles();
+  return (
+    <>
+      <h1>Hello world</h1>
+      <ul>
+        {messages.map(({ id, message }) => (
+          <li key={id} className={classes.li}>{message}</li>
+        ))}
+      </ul>
+    </>
+  );
+};
 
 App.propTypes = {
   messages: PropTypes.arrayOf(
