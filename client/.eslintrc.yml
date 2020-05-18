@@ -1,0 +1,10 @@
+parserOptions:
+  sourceType: script
+
+extends:
+  - airbnb
+
+rules:
+  strict: 
+    - error
+    - safe
