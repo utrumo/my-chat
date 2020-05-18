@@ -1,4 +1,5 @@
 import React from 'react';
+import { hot } from 'react-hot-loader/root';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
@@ -37,4 +38,4 @@ const mapStateToProps = (state) => ({
   messages: DataSelector.getMessages(state),
 });
 
-export default connect(mapStateToProps)(App);
+export default hot(connect(mapStateToProps)(App));

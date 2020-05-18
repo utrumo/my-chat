@@ -1,26 +1,31 @@
 'use strict';
 
 const { resolve } = require('path');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 
 const src = resolve(__dirname, 'src');
-const dist = resolve(__dirname, 'public');
+const dist = resolve(__dirname, 'dist');
 
 module.exports = {
-  context: src,
-  resolve: {
-    extensions: ['.js', '.jsx'],
-  },
-  entry: './index.jsx',
-  output: {
-    filename: 'main.js',
-    path: dist,
-  },
+  mode: 'development',
   devtool: 'eval-source-map',
   devServer: {
     contentBase: dist,
     open: true,
     port: 9000,
     historyApiFallback: true,
+  },
+  context: src,
+  resolve: {
+    extensions: ['.js', '.jsx'],
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+  },
+  entry: './index.jsx',
+  output: {
+    filename: 'main.js',
+    path: dist,
   },
   module: {
     rules: [
@@ -33,4 +38,9 @@ module.exports = {
       },
     ],
   },
+  plugins: [new HtmlWebpackPlugin({
+    template: './index.html',
+    lang: 'ru',
+    title: 'My chat',
+  })],
 };

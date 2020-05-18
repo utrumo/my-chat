@@ -11,9 +11,10 @@ const store = createStore(reducer, composeEnchancers());
 
 start(store.dispatch);
 
+const root = document.createElement('div');
+document.body.appendChild(root);
 ReactDom.render((
   <Provider store={store}>
     <App />
   </Provider>
-),
-document.getElementById('root'));
+), root);
