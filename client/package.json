@@ -12,7 +12,7 @@
     "client"
   ],
   "author": "Petr Devyaterikov",
-  "license": "ISC",
+  "license": "Apache-2.0",
   "dependencies": {
     "prop-types": "15.7.2",
     "react": "16.13.1",
