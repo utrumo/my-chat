@@ -5,7 +5,9 @@
   "private": true,
   "scripts": {
     "build": "NODE_ENV=production webpack --mode production",
-    "watch": "webpack-dev-server --hot"
+    "watch": "webpack-dev-server --hot",
+    "eslint": "eslint --ext js --ext jsx .",
+    "precommit": "lint-staged"
   },
   "keywords": [
     "my-chat",
@@ -37,6 +39,7 @@
     "eslint-plugin-react": "7.20.0",
     "eslint-plugin-react-hooks": "2.5.1",
     "html-webpack-plugin": "4.3.0",
+    "lint-staged": "10.2.4",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
     "webpack-dev-server": "3.11.0"
