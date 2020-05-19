@@ -40,7 +40,7 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({
     template: './index.html',
-    lang: 'ru',
+    lang: 'en',
     title: 'My chat',
   })],
 };
