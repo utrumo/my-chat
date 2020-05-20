@@ -1,6 +1,6 @@
 import { compose, createStore as _createStore, applyMiddleware } from 'redux';
-import rootReducer from './root-reducer';
-import createWebSocketMiddleware from './middleware/web-socket';
+import rootReducer from './root-reducer.js';
+import createWebSocketMiddleware from './middleware/web-socket.js';
 
 const createStore = () => {
   const composeEnchancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;

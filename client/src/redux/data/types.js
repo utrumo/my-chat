@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import * as NameSpace from '../name-spaces';
+import * as NameSpace from '../name-spaces.js';
 
 export const DO_CONNECT_REQUEST = `app/${NameSpace.DATA}/DO_CONNECT_REQUEST`;
 export const DO_CONNECT_SUCCESS = `app/${NameSpace.DATA}/DO_CONNECT_SUCCESS`;

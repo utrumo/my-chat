@@ -22,5 +22,9 @@ rules:
       controlComponents:
         - textarea
 
+  import/extensions:
+    - error
+    - always
+
 settings:
   import/resolver: webpack

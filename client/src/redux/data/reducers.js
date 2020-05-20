@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import * as Type from './types';
+import * as Type from './types.js';
 
 const messagesReducer = (messages = [], action) => {
   if (action.type === Type.RECEIVE_MESSAGE) {

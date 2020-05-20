@@ -1,69 +1,13 @@
 import React, { useEffect } from 'react';
-import { hot } from 'react-hot-loader/root';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
-import { DataSelector, DataOperation } from '../redux';
+import { DataSelector, DataOperation } from '@/redux';
+import { hot } from 'react-hot-loader/root.js';
+import styles from './styles.js';
 
-const visuallyHidden = {
-  position: 'absolute',
-  width: '1px',
-  height: '1px',
-  margin: '-1px',
-  border: 0,
-  padding: 0,
-  whiteSpace: 'nowrap',
-  clipPath: 'inset(100%)',
-  clip: 'rect(0 0 0 0)',
-  overflow: 'hidden',
-};
+const useStyles = createUseStyles(styles);
 
-const useStyles = createUseStyles({
-  visuallyHidden,
-  '@global': {
-    body: {
-      margin: 0,
-      boxSizing: 'border-box',
-    },
-    '*, ::after, ::before': {
-      boxSizing: 'inherit',
-    },
-  },
-  main: {
-    display: 'flex',
-    flexDirection: 'column',
-    padding: '30px',
-    height: '100vh',
-  },
-  wrapper: {
-    display: 'flex',
-    flexGrow: 1,
-    overflowY: 'hidden',
-    border: '3px solid blue',
-  },
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-  },
-  chatHistory: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexGrow: 1,
-    overflowY: 'hidden',
-    border: '1px solid red',
-  },
-  messageList: {
-    flexGrow: 1,
-    overflowY: 'auto',
-    listStyle: 'none',
-  },
-  li: {
-    color: 'green',
-  },
-});
-
-// eslint-disable jsx-a11y-no-autofocus
 const App = ({ messages, initConnection }) => {
   useEffect(() => { initConnection(); }, []);
   const classes = useStyles();

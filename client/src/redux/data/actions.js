@@ -1,5 +1,5 @@
 /* eslint-disable import/prefer-default-export */
-import * as Type from './types';
+import * as Type from './types.js';
 
 export const doConnectRequest = () => ({
   type: Type.DO_CONNECT_REQUEST,

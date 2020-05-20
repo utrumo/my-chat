@@ -1,7 +1,7 @@
 import {
   Operation as DataOperation,
   Type as DataType,
-} from '../data';
+} from '../data/index.js';
 
 const SERVER_URL = 'ws://localhost:8080/';
 
