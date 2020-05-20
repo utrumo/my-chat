@@ -14,3 +14,10 @@ rules:
     - error
     - args: after-used
       argsIgnorePattern: ^_
+
+  jsx-a11y/label-has-associated-control:
+    - error
+    - labelComponents:
+        - label
+      controlComponents:
+        - textarea
