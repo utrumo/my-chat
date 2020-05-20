@@ -21,3 +21,6 @@ rules:
         - label
       controlComponents:
         - textarea
+
+settings:
+  import/resolver: webpack
