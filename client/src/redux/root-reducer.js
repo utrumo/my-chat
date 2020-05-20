@@ -1,9 +1,9 @@
 import { combineReducers } from 'redux';
 import * as NameSpace from './name-spaces';
-import { reducer as dataReducer } from './data';
+import dataReducer from './data';
 
-const reducer = combineReducers({
+const rootReducer = combineReducers({
   [NameSpace.DATA]: dataReducer,
 });
 
-export default reducer;
+export default rootReducer;
