@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { createUseStyles } from 'react-jss';
-import { DataSelector, DataOperation } from '@/redux';
+import { DataSelector, DataOperation } from '@/redux/redux.js';
 import { hot } from 'react-hot-loader/root.js';
 import styles from './styles.js';
 

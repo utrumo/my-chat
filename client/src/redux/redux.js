@@ -1,5 +1,5 @@
 export {
   Operation as DataOperation,
   Selector as DataSelector,
-} from './data/index.js';
+} from './data/data.js';
 export { default } from './create-store.js';
