@@ -18,7 +18,7 @@ const SendMessage = () => {
             autoComplete="off"
           />
         </label>
-        <button type="submit">Submit</button>
+        <button type="submit">Send</button>
       </form>
     </section>
   );

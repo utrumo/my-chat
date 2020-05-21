@@ -1,6 +1,6 @@
 import React from 'react';
 import { createUseStyles } from 'react-jss';
-import styles from './connection-status-styles.jsx';
+import styles from './connection-status-styles.js';
 
 const useStyles = createUseStyles(styles);
 
