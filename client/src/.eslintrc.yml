@@ -21,6 +21,7 @@ rules:
         - label
       controlComponents:
         - textarea
+        - output
 
   import/extensions:
     - error
