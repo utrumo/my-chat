@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { createUseStyles } from 'react-jss';
+import { getTime } from '@/components/common/utils.js';
 import styles from './chat-history-styles.js';
 
 const useStyles = createUseStyles(styles);
@@ -11,8 +12,8 @@ const ChatHistory = ({ messages }) => {
     <section className={classes.chatHistory}>
       <h2 className={classes.visuallyHidden}>Messages history</h2>
       <ul className={classes.messagesList}>
-        {messages.map(({ id, message }) => (
-          <li key={id} className={classes.message}>{message}</li>
+        {messages.map(({ timestamp, message }) => (
+          <li key={timestamp} className={classes.message}>{`${getTime(timestamp)} ${message}`}</li>
         ))}
       </ul>
     </section>
@@ -22,7 +23,7 @@ const ChatHistory = ({ messages }) => {
 ChatHistory.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.exact({
-      id: PropTypes.number,
+      timestamp: PropTypes.number,
       message: PropTypes.string,
     }),
   ).isRequired,

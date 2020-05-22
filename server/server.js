@@ -9,18 +9,16 @@ const startServer = () => {
     });
   });
 
-  let i = 0;
   setInterval(() => {
     const data = JSON.stringify({
-      id: i,
-      message: `Message from server №${i}`,
+      timestamp: Date.now(),
+      message: 'Message from server',
     });
     wss.clients.forEach((client) => {
       if (client.readyState === WebSocket.OPEN) {
         client.send(data);
       }
     });
-    i += 1;
   }, 2500);
 };
 
