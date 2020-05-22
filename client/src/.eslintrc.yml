@@ -15,6 +15,9 @@ rules:
     - args: after-used
       argsIgnorePattern: ^_
 
+  no-underscore-dangle:
+    - off
+
   jsx-a11y/label-has-associated-control:
     - error
     - labelComponents:
