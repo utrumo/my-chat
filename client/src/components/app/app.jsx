@@ -6,8 +6,8 @@ import styles from './app-styles.js';
 
 const useStyles = createUseStyles(styles);
 
-const App = ({ initConnection }) => {
-  useEffect(() => { initConnection(); }, []);
+const App = ({ sendConnectionRequest }) => {
+  useEffect(() => { sendConnectionRequest(); }, []);
   const classes = useStyles();
   return (
     <MainPage className={classes['@@global']} />
@@ -15,7 +15,7 @@ const App = ({ initConnection }) => {
 };
 
 App.propTypes = {
-  initConnection: PropTypes.func.isRequired,
+  sendConnectionRequest: PropTypes.func.isRequired,
 };
 
 export default App;

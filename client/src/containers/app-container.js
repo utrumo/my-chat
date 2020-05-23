@@ -4,7 +4,7 @@ import { DataOperation } from '@/redux/redux.js';
 import AppContainer from '@/components/app/app.jsx';
 
 const mapDispatchToProps = {
-  initConnection: DataOperation.doConnectRequest,
+  sendConnectionRequest: DataOperation.sendConnectionRequest,
 };
 
 export default hot(connect(null, mapDispatchToProps)(AppContainer));
