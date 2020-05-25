@@ -2,7 +2,7 @@ import React from 'react';
 import { createUseStyles } from 'react-jss';
 import ChatHistoryContainer from '@/containers/chat-history-container.js';
 import ConnectionStatus from '@/containers/connection-status-container.js';
-import SendMessage from '@/components/send-message/send-message.jsx';
+import SendMessage from '@/containers/send-message-container.js';
 import Users from '@/components/users/users.jsx';
 import styles from './main-page-styles.js';
 
