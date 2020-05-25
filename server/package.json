@@ -4,9 +4,10 @@
   "description": "Server for my chat",
   "private": true,
   "type": "module",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "watch": "nodemon server.js",
+    "watch": "nodemon --inspect",
     "eslint": "eslint .",
     "precommit": "lint-staged"
   },
