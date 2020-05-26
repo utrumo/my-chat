@@ -3,7 +3,13 @@
 module.exports = {
   presets: [
     '@babel/preset-react',
-    '@babel/preset-env',
+    [
+      '@babel/preset-env',
+      {
+        // useBuiltIns: 'usage',
+        // debug: true,
+      },
+    ],
   ],
   plugins: [
     'react-hot-loader/babel',
