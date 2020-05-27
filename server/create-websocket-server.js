@@ -16,7 +16,7 @@ const enableKeepAliveChecking = (clients) => {
   const interval = setInterval(() => {
     clients.forEach(({ ws }) => { // eslint-disable-line consistent-return
       if (ws.isAlive === false) {
-        return ws.close();
+        return ws.terminate();
       }
       ws.isAlive = false; // eslint-disable-line no-param-reassign
       ws.ping();
