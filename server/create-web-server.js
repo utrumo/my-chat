@@ -2,21 +2,34 @@ import express from 'express';
 import session from 'express-session';
 import createFileStore from 'session-file-store';
 
+const SERVER_NAME = 'http://localhost:9000';
 const FILE_STORE_OPTIONS = {
   reapInterval: 60 * 10, // 10 minutes;
 };
 const SESSION_PARSER_OPTIONS = {
-  cookie: { maxAge: 1000 * 60 * 60 },
+  cookie: { maxAge: 1000 * 60 * 60 }, // one hour
   resave: false,
   rolling: true,
   saveUninitialized: false,
   secret: '$ECreT',
+};
+const OPTIONS_METHOD = 'OPTIONS';
+
+const corsMiddleware = (req, res, next) => {
+  res.set('Access-Control-Allow-Origin', SERVER_NAME);
+  res.set('Access-Control-Allow-Credentials', 'true');
+  if (req.method === OPTIONS_METHOD) {
+    res.set('Access-Control-Allow-Headers', 'Content-Type');
+  }
+  next();
 };
 
 const createWebServer = (clients) => {
   const fileStore = new (createFileStore(session))(FILE_STORE_OPTIONS);
   const sessionParser = session({ ...SESSION_PARSER_OPTIONS, store: fileStore });
   const app = express();
+
+  app.use(corsMiddleware);
   app.use(express.json());
   app.use(sessionParser);
 
@@ -26,14 +39,10 @@ const createWebServer = (clients) => {
       return;
     }
     req.session.name = req.body.name;
-    res.status(200).send({ message: 'OK' });
+    res.status(200).send({ name: req.session.name });
   });
 
   app.get('/login', (req, res) => {
-    res.set('Access-Control-Allow-Origin', 'http://localhost:9000');
-    // res.set('Access-Control-Allow-Credentials', 'true');
-    // res.set("Access-Control-Allow-Headers", "Content-Type");
-
     if (!req.session.name) {
       res.status(401).send({ error: 'Unauthorized' });
       return;
@@ -44,11 +53,9 @@ const createWebServer = (clients) => {
   app.delete('/logout', (req, res) => {
     req.session.destroy(() => {
       const ws = clients.get(req.session.id);
-
       if (ws) {
         ws.close();
       }
-
       res.clearCookie('connect.sid');
       res.status(200).send({ message: 'OK' });
     });
