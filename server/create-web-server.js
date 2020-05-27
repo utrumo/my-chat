@@ -52,8 +52,9 @@ const createWebServer = (clients) => {
   });
 
   app.delete('/logout', (req, res) => {
+    const { id } = req.session;
     req.session.destroy(() => {
-      const ws = clients.get(req.session.id);
+      const ws = clients.get(id);
       if (ws) {
         ws.close();
       }
