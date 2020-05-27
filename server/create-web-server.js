@@ -18,6 +18,7 @@ const OPTIONS_METHOD = 'OPTIONS';
 const corsMiddleware = (req, res, next) => {
   res.set('Access-Control-Allow-Origin', SERVER_NAME);
   res.set('Access-Control-Allow-Credentials', 'true');
+  res.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE');
   if (req.method === OPTIONS_METHOD) {
     res.set('Access-Control-Allow-Headers', 'Content-Type');
   }
