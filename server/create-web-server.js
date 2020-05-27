@@ -4,11 +4,11 @@ import createFileStore from 'session-file-store';
 
 const SERVER_NAME = 'http://localhost:9000';
 const FILE_STORE_OPTIONS = {
-  reapInterval: 60 * 10, // 10 minutes;
+  reapInterval: 60 * 30, // 30 minutes;
 };
 const SESSION_PARSER_OPTIONS = {
   cookie: {
-    maxAge: 1000 * 60 * 60, // one hour
+    maxAge: 1000 * 60 * 60 * 24 * 3, // 3 Days
     sameSite: 'strict',
   },
   resave: false,
