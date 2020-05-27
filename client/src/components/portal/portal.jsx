@@ -1,19 +1,19 @@
-import { useState, useEffect } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-const Portal = ({ children, className = 'root-portal', el = 'div' }) => {
-  const [container] = useState(document.createElement(el));
+const Portal = ({ children, className = 'root-portal' }) => {
+  const rootRef = useRef(document.createElement('div'));
   const [isAppended, setIsAppended] = useState(false);
   useEffect(() => {
-    container.classList.add(className);
-    document.body.appendChild(container);
+    rootRef.current.classList.add(className);
+    document.body.appendChild(rootRef.current);
     setIsAppended(true);
     return () => {
-      document.body.removeChild(container);
+      document.body.removeChild(rootRef.current);
     };
   }, []);
-  return isAppended && ReactDOM.createPortal(children, container);
+  return isAppended && ReactDOM.createPortal(children, rootRef.current);
 };
 
 Portal.propTypes = {
