@@ -50,10 +50,21 @@ const connectionReducer = (state = initState, action) => {
 };
 
 const messagesReducer = (messages = [], action) => {
-  if (action.type === Type.MESSAGE_RECEIVED) {
+  if (action.type === Type.BROADCAST_MESSAGE_RECEIVED) {
     return [...messages, action.payload];
   }
   return messages;
+};
+
+const usersReducer = (users = [], action) => {
+  switch (action.type) {
+    case Type.USERS_LIST_MESSAGE_RECEIVED:
+      return action.payload;
+    case Type.LOGOUT_FROM_SERVER_SUCCESS:
+      return [];
+    default:
+      return users;
+  }
 };
 
 const rootReducer = combineReducers({
@@ -61,6 +72,7 @@ const rootReducer = combineReducers({
   profile: profileReducer,
   connection: connectionReducer,
   messages: messagesReducer,
+  users: usersReducer,
 });
 
 export default rootReducer;

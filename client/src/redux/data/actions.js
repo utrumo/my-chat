@@ -42,7 +42,11 @@ export const notifyConnectionClosed = (code, delay) => ({
   type: Type.CONNECTION_CLOSED,
   payload: { code, delay },
 });
-export const notifyMessageReceived = (message) => ({
-  type: Type.MESSAGE_RECEIVED,
+export const notifyBroadcastMessageReceived = (message) => ({
+  type: Type.BROADCAST_MESSAGE_RECEIVED,
+  payload: message,
+});
+export const notifyUserListMessageReceived = (message) => ({
+  type: Type.USERS_LIST_MESSAGE_RECEIVED,
   payload: message,
 });

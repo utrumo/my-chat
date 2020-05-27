@@ -4,7 +4,7 @@ import { createUseStyles } from 'react-jss';
 import ChatHistoryContainer from '@/containers/chat-history-container.js';
 import ConnectionStatus from '@/containers/connection-status-container.js';
 import SendMessage from '@/containers/send-message-container.js';
-import Users from '@/components/users/users.jsx';
+import UsersContainer from '@/containers/users-container.js';
 import LoginModalContainer from '@/containers/login-modal-container.js';
 import styles from './main-page-styles.js';
 
@@ -21,7 +21,7 @@ const MainPage = ({ isAuthorizationRequired }) => {
           <ChatHistoryContainer />
           <SendMessage />
         </div>
-        <Users />
+        <UsersContainer />
       </div>
       { isAuthorizationRequired && <LoginModalContainer />}
     </main>

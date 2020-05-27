@@ -16,6 +16,12 @@ const SubUrl = {
   LOGOUT: 'logout',
 };
 
+const MessageType = {
+  USER_MESSAGE: 'USER_MESSAGE',
+  BROADCAST_MESSAGE: 'BROADCAST_MESSAGE',
+  USERS_LIST: 'USERS_LIST',
+};
+
 const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 class Api {
@@ -25,14 +31,14 @@ class Api {
     this._delayCalc = new DelayCalculator();
     this._ws = null;
 
-    this.checkCookieAndConnect = this.checkCookieAndConnect.bind(this);
+    this.checkAuthorizationAndConnect = this.checkAuthorizationAndConnect.bind(this);
     this._websocketConnect = this._createWebsocket.bind(this);
     this._onOpen = this._onOpen.bind(this);
     this._onMessage = this._onMessage.bind(this);
     this._onClose = this._onClose.bind(this);
   }
 
-  async checkCookieAndConnect() {
+  async checkAuthorizationAndConnect() {
     this._dispatch(DataOperation.notifyLoadProfileRequested());
     const { response, result: profile } = await this._persistentFetch(SubUrl.LOGIN, METHOD.get);
     if (response.status === Status.unauthorized) {
@@ -57,8 +63,12 @@ class Api {
     this._dispatch(DataOperation.notifyLogoutSuccess());
   }
 
-  sendMessage(data) {
-    const json = JSON.stringify(data);
+  sendMessage(messageValue) {
+    const message = {
+      type: MessageType.USER_MESSAGE,
+      payload: messageValue,
+    };
+    const json = JSON.stringify(message);
     this._ws.send(json);
   }
 
@@ -110,14 +120,25 @@ class Api {
 
   _onMessage(evt) {
     const data = JSON.parse(evt.data);
-    this._dispatch(DataOperation.notifyMessageReceived(data));
+    switch (data.type) { // eslint-disable-line default-case
+      case MessageType.BROADCAST_MESSAGE: {
+        const message = data.payload;
+        this._dispatch(DataOperation.notifyBroadcastMessageReceived(message));
+        break;
+      }
+      case MessageType.USERS_LIST: {
+        const message = data.payload;
+        this._dispatch(DataOperation.notifyUserListMessageReceived(message));
+        break;
+      }
+    }
   }
 
   _onClose(evt) {
     const { code } = evt;
     const delay = this._delayCalc.getDelay();
     this._closeWebsocket();
-    setTimeout(this.checkCookieAndConnect, delay);
+    setTimeout(this.checkAuthorizationAndConnect, delay);
     this._dispatch(DataOperation.notifyConnectionClosed(code, delay));
   }
 

@@ -15,16 +15,19 @@ const createConnectMiddleware = () => {
 
     switch (action.type) { // eslint-disable-line default-case
       case DataType.CONNECT_TO_SERVER:
-        api.checkCookieAndConnect();
+        api.checkAuthorizationAndConnect();
         break;
-      case DataType.AUTHORIZE_ON_SERVER:
-        api.authorizeAndConnect(action.payload);
+      case DataType.AUTHORIZE_ON_SERVER: {
+        const userName = action.payload;
+        api.authorizeAndConnect(userName);
         break;
+      }
       case DataType.LOGOUT_FROM_SERVER:
         api.logout();
         break;
       case DataType.SEND_MESSAGE: {
-        api.sendMessage({ type: 'SEND_MESSAGE', payload: action.payload });
+        const messageVaule = action.payload;
+        api.sendMessage(messageVaule);
         break;
       }
     }
