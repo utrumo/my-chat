@@ -7,7 +7,10 @@ const FILE_STORE_OPTIONS = {
   reapInterval: 60 * 10, // 10 minutes;
 };
 const SESSION_PARSER_OPTIONS = {
-  cookie: { maxAge: 1000 * 60 * 60 }, // one hour
+  cookie: {
+    maxAge: 1000 * 60 * 60, // one hour
+    sameSite: 'strict',
+  },
   resave: false,
   rolling: true,
   saveUninitialized: false,
