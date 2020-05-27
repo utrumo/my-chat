@@ -20,10 +20,10 @@ const UserList = ({ users }) => {
 };
 
 UserList.propTypes = {
-  users: PropTypes.arrayOf({
-    id: PropTypes.string.isRequred,
-    name: PropTypes.string.isRequired,
-  }).isRequired,
+  users: PropTypes.arrayOf(PropTypes.exact({
+    id: PropTypes.string,
+    name: PropTypes.string,
+  })).isRequired,
 };
 
 export default UserList;

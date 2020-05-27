@@ -35,9 +35,9 @@ class ChatHistory extends PureComponent {
       <section className={classes.chatHistory}>
         <h2 className={classes.visuallyHidden}>Messages history</h2>
         <ul className={classes.messagesList} ref={this.listRef}>
-          {messages.map(({ timestamp, message }) => (
+          {messages.map(({ timestamp, author, message }) => (
             <li key={timestamp} className={classes.message}>
-              {`${getTime(timestamp)} ${message}`}
+              {`${getTime(timestamp)} ${author}: ${message}`}
             </li>
           ))}
         </ul>
@@ -51,6 +51,7 @@ ChatHistory.propTypes = {
   messages: PropTypes.arrayOf(
     PropTypes.exact({
       timestamp: PropTypes.number,
+      author: PropTypes.string,
       message: PropTypes.string,
     }),
   ).isRequired,
