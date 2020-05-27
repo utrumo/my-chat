@@ -34,7 +34,6 @@ const createWebsocketServer = (clients) => {
   wss.on('connection', (ws, req) => {
     const { id } = req.session;
     clients.set(id, ws);
-    clients.forEach((value, key) => console.log(`connected ${key}: ${value}`));
 
     ws.isAlive = true; // eslint-disable-line no-param-reassign
     ws.on('pong', heartbeat);
