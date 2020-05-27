@@ -43,6 +43,8 @@ const connectionReducer = (state = initState, action) => {
       const { code, delay } = action.payload;
       return { status: Status.closed, code, delay };
     }
+    case Type.LOGOUT_FROM_SERVER_SUCCESS:
+      return initState;
     default: return state;
   }
 };

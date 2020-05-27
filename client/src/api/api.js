@@ -52,6 +52,7 @@ class Api {
   }
 
   async logout() {
+    this._closeWebsocket();
     await this._persistentFetch(SubUrl.LOGOUT, METHOD.delete);
     this._dispatch(DataOperation.notifyLogoutSuccess());
   }
@@ -115,15 +116,16 @@ class Api {
   _onClose(evt) {
     const { code } = evt;
     const delay = this._delayCalc.getDelay();
-    this._clearWebsocket();
+    this._closeWebsocket();
     setTimeout(this.checkCookieAndConnect, delay);
     this._dispatch(DataOperation.notifyConnectionClosed(code, delay));
   }
 
-  _clearWebsocket() {
+  _closeWebsocket() {
     this._ws.onopen = null;
     this._ws.onclose = null;
     this._ws.onmessage = null;
+    this._ws.close();
     this._ws = null;
   }
 }
