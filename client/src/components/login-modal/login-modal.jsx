@@ -8,19 +8,19 @@ const MAX_MESSAGE_LENGTH = 100;
 
 const useStyles = createUseStyles(styles);
 
-const LoginModal = ({ sendMessage }) => {
+const LoginModal = ({ authorize }) => {
   const classes = useStyles();
 
-  const [value, setValue] = useState('');
+  const [name, setName] = useState('');
   const onChange = useCallback((evt) => {
-    setValue(evt.target.value.trim());
+    setName(evt.target.value.trim());
   }, []);
 
   const formRef = useRef();
   const onSubmit = useCallback((evt) => {
     evt.preventDefault();
-    sendMessage(value);
-  }, [value]);
+    authorize(name);
+  }, [name]);
 
   /* eslint-disable jsx-a11y/no-autofocus */
   return (
@@ -34,7 +34,7 @@ const LoginModal = ({ sendMessage }) => {
                 <span className={classes.visuallyHidden}>Your name</span>
                 <input
                   type="text"
-                  value={value}
+                  value={name}
                   onChange={onChange}
                   placeholder="Your name"
                   maxLength={MAX_MESSAGE_LENGTH}
@@ -44,7 +44,7 @@ const LoginModal = ({ sendMessage }) => {
               </label>
             </p>
             <p className={classes.buttonContainer}>
-              <button type="submit" disabled={!value}>Enter</button>
+              <button type="submit" disabled={!name}>Enter</button>
             </p>
           </form>
         </div>
@@ -54,7 +54,7 @@ const LoginModal = ({ sendMessage }) => {
 };
 
 LoginModal.propTypes = {
-  sendMessage: PropTypes.func.isRequired,
+  authorize: PropTypes.func.isRequired,
 };
 
 export default LoginModal;

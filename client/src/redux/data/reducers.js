@@ -1,6 +1,31 @@
 import { combineReducers } from 'redux';
 import * as Type from './types.js';
 
+const authorizationReducer = (state = false, action) => {
+  switch (action.type) {
+    case Type.AUTHORIZATION_REQUIRED:
+    case Type.LOGOUT_FROM_SERVER_SUCCESS:
+      return true;
+    case Type.AUTHORIZATION_SUCCESS:
+    case Type.LOAD_PROFILE_SUCCESS:
+      return false;
+    default:
+      return state;
+  }
+};
+
+const profileReducer = (state = {}, action) => {
+  switch (action.type) {
+    case Type.AUTHORIZATION_SUCCESS:
+    case Type.LOAD_PROFILE_SUCCESS:
+      return action.payload;
+    case Type.LOGOUT_FROM_SERVER_SUCCESS:
+      return {};
+    default:
+      return state;
+  }
+};
+
 const Status = {
   connecting: 'connecting',
   connected: 'connected',
@@ -8,7 +33,6 @@ const Status = {
 };
 
 const initState = { status: Status.closed, code: null, delay: null };
-
 const connectionReducer = (state = initState, action) => {
   switch (action.type) {
     case Type.CONNECTION_REQUESTED:
@@ -31,6 +55,8 @@ const messagesReducer = (messages = [], action) => {
 };
 
 const rootReducer = combineReducers({
+  isAuthorizationRequired: authorizationReducer,
+  profile: profileReducer,
   connection: connectionReducer,
   messages: messagesReducer,
 });
