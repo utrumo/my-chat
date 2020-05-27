@@ -1,35 +1,25 @@
-import { PureComponent } from 'react';
+import { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import PropTypes from 'prop-types';
 
-class Portal extends PureComponent {
-  constructor(props) {
-    super(props);
-    this.modalRoot = document.querySelector('#portal-root');
-    this.el = document.createElement('div');
-    this.state = {
-      isAppended: false,
+const Portal = ({ children, className = 'root-portal', el = 'div' }) => {
+  const [container] = useState(document.createElement(el));
+  const [isAppended, setIsAppended] = useState(false);
+  useEffect(() => {
+    container.classList.add(className);
+    document.body.appendChild(container);
+    setIsAppended(true);
+    return () => {
+      document.body.removeChild(container);
     };
-  }
-
-  componentDidMount() {
-    this.modalRoot.appendChild(this.el);
-    this.setState({ isAppended: true });
-  }
-
-  componentWillUnmount() {
-    this.modalRoot.removeChild(this.el);
-  }
-
-  render() {
-    const { children } = this.props;
-    const { isAppended } = this.state;
-    return isAppended && ReactDOM.createPortal(children, this.el);
-  }
-}
+  }, []);
+  return isAppended && ReactDOM.createPortal(children, container);
+};
 
 Portal.propTypes = {
   children: PropTypes.node.isRequired,
+  className: PropTypes.string,
+  el: PropTypes.string,
 };
 
 export default Portal;
