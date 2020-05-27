@@ -1,2 +1,7 @@
 extends:
   - airbnb-base
+
+rules:
+  import/extensions:
+    - error
+    - always
