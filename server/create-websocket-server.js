@@ -44,7 +44,7 @@ const sendActualUsersList = (clients) => {
   broadcast(message, clients);
 };
 
-const messageHandler = (json, clients) => {
+const messageHandler = (json, author, clients) => {
   const data = JSON.parse(json);
 
   switch (data.type) { // eslint-disable-line default-case
@@ -56,6 +56,7 @@ const messageHandler = (json, clients) => {
         type: MessageType.BROADCAST_MESSAGE,
         payload: {
           timestamp: Date.now(),
+          author,
           message: userMessage,
         },
       };
@@ -76,7 +77,7 @@ const createWebsocketServer = (clients) => {
 
     ws.on('pong', heartbeat);
     ws.on('message', (evt) => {
-      messageHandler(evt, clients);
+      messageHandler(evt, name, clients);
     });
     ws.on('close', () => {
       clients.delete(id);
