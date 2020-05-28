@@ -1,8 +1,6 @@
 import Api from '@/api/api.js';
 import { Type as DataType } from '../data/data.js';
 
-const SERVER_URL = 'localhost:8080';
-
 const createConnectMiddleware = () => {
   let api = null;
 
@@ -10,7 +8,7 @@ const createConnectMiddleware = () => {
     const result = next(action);
 
     if (!api) {
-      api = new Api(SERVER_URL, next);
+      api = new Api(next);
     }
 
     switch (action.type) { // eslint-disable-line default-case

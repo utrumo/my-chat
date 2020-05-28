@@ -2,6 +2,7 @@
 
 const { resolve } = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const { EnvironmentPlugin } = require('webpack');
 
 const src = resolve(__dirname, 'src');
 const dist = resolve(__dirname, 'dist');
@@ -39,9 +40,15 @@ module.exports = {
       },
     ],
   },
-  plugins: [new HtmlWebpackPlugin({
-    template: './index.html',
-    lang: 'en',
-    title: 'My chat',
-  })],
+  plugins: [
+    new HtmlWebpackPlugin({
+      template: './index.html',
+      lang: 'en',
+      title: 'My chat',
+    }),
+    new EnvironmentPlugin({
+      API_SERVER: 'localhost:8080',
+      USE_HTTPS: false,
+    }),
+  ],
 };
