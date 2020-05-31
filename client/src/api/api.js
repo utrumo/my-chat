@@ -7,8 +7,8 @@ const Status = {
 
 /* eslint-disable prefer-destructuring */
 /* eslint-disable no-undef */
-const API_SERVER = process.env.API_SERVER;
-const USE_HTTPS = process.env.USE_HTTPS;
+const REST_API_SERVER = process.env.REST_API_SERVER;
+const WEBSOCKET_API_SERVER = process.env.WEBSOCKET_API_SERVER;
 /* eslint-enable */
 
 const METHOD = {
@@ -32,8 +32,6 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 class Api {
   constructor(dispatch) {
-    this._restApiPath = `${USE_HTTPS === 'true' ? 'https' : 'http'}://${API_SERVER}`;
-    this._websocketApiPath = `${USE_HTTPS === 'true' ? 'wss' : 'ws'}://${API_SERVER}`;
     this._dispatch = dispatch;
     this._delayCalc = new DelayCalculator();
     this._ws = null;
@@ -99,7 +97,7 @@ class Api {
   }
 
   async _fetch(subUrl, method, data) {
-    const url = `${this._restApiPath}/${subUrl}`;
+    const url = `${REST_API_SERVER}/${subUrl}`;
     const body = data && JSON.stringify(data);
     return fetch(url, {
       method,
@@ -112,7 +110,7 @@ class Api {
   }
 
   _createWebsocket() {
-    const ws = new WebSocket(this._websocketApiPath);
+    const ws = new WebSocket(WEBSOCKET_API_SERVER);
     ws.onopen = this._onOpen;
     ws.onclose = this._onClose;
     ws.onmessage = this._onMessage;

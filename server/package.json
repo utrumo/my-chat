@@ -6,7 +6,7 @@
   "type": "module",
   "main": "server.js",
   "scripts": {
-    "start": "node server.js",
+    "start": "NODE_ENV=production node server.js",
     "watch": "nodemon --inspect --ignore sessions/",
     "eslint": "eslint .",
     "precommit": "lint-staged"

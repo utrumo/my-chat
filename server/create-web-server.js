@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import createFileStore from 'session-file-store';
 
-const { CLIENT_ORIGIN = 'http://localhost:9000'} = process.env;
+const { CORS_ORIGIN = 'http://localhost:9000'} = process.env;
 const FILE_STORE_OPTIONS = {
   reapInterval: 60 * 30, // 30 minutes;
 };
@@ -19,7 +19,7 @@ const SESSION_PARSER_OPTIONS = {
 const OPTIONS_METHOD = 'OPTIONS';
 
 const corsMiddleware = (req, res, next) => {
-  res.set('Access-Control-Allow-Origin', CLIENT_ORIGIN);
+  res.set('Access-Control-Allow-Origin', CORS_ORIGIN);
   res.set('Access-Control-Allow-Credentials', 'true');
   res.set('Access-Control-Allow-Methods', 'OPTIONS, GET, POST, DELETE');
   if (req.method === OPTIONS_METHOD) {

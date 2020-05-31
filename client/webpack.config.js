@@ -47,8 +47,8 @@ module.exports = {
       title: 'My chat',
     }),
     new EnvironmentPlugin({
-      API_SERVER: 'localhost:8080',
-      USE_HTTPS: false,
+      REST_API_SERVER: 'http://localhost:3000',
+      WEBSOCKET_API_SERVER: 'ws://localhost:3000',
     }),
   ],
 };
