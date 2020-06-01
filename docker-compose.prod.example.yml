@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  server:
+    environment:
+      CORS_ORIGIN: https://example.com
+      VIRTUAL_HOST: api.example.com
+      LETSENCRYPT_HOST: api.example.com
+      LETSENCRYPT_EMAIL: admin@example.com
+  client:
+    build:
+      args:
+        REST_API_SERVER: https://api.example.com
+        WEBSOCKET_API_SERVER: wss://api.example.com
+    environment:
+      VIRTUAL_HOST: example.com
+      LETSENCRYPT_HOST: example.com
+      LETSENCRYPT_EMAIL: admin@example.com
