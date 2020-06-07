@@ -5,10 +5,9 @@ const Status = {
   unauthorized: 401,
 };
 
-/* eslint-disable prefer-destructuring */
 /* eslint-disable no-undef */
-const REST_API_SERVER = process.env.REST_API_SERVER;
-const WEBSOCKET_API_SERVER = process.env.WEBSOCKET_API_SERVER;
+const API_SERVER_URL = process.env.REST_API_SERVER;
+const WEBSOCKET_SERVER_URL = process.env.WEBSOCKET_API_SERVER;
 /* eslint-enable */
 
 const METHOD = {
@@ -97,7 +96,7 @@ class Api {
   }
 
   async _fetch(subUrl, method, data) {
-    const url = `${REST_API_SERVER}/${subUrl}`;
+    const url = `${API_SERVER_URL}/${subUrl}`;
     const body = data && JSON.stringify(data);
     return fetch(url, {
       method,
@@ -110,7 +109,7 @@ class Api {
   }
 
   _createWebsocket() {
-    const ws = new WebSocket(WEBSOCKET_API_SERVER);
+    const ws = new WebSocket(WEBSOCKET_SERVER_URL);
     ws.onopen = this._onOpen;
     ws.onclose = this._onClose;
     ws.onmessage = this._onMessage;
