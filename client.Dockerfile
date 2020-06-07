@@ -1,4 +1,4 @@
-FROM node:14.3.0-slim as builder
+FROM node:14.4.0-slim as builder
 WORKDIR /home/node/app
 RUN chown node:node .
 COPY --chown=node:node ./client/package*.json ./
@@ -12,6 +12,6 @@ ENV REST_API_SERVER=${REST_API_SERVER:-http://api.my-chat.localhost}
 ENV WEBSOCKET_API_SERVER=${WEBSOCKET_API_SERVER:-ws://api.my-chat.localhost}
 RUN npm run build
 
-FROM nginx:1.17.10-alpine
+FROM nginx:1.19.0-alpine
 WORKDIR /usr/share/nginx/html
 COPY --chown=root:root --from=builder /home/node/app/dist/* ./
