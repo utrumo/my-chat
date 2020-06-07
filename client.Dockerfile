@@ -10,7 +10,6 @@ ARG REST_API_SERVER
 ARG WEBSOCKET_API_SERVER
 ENV REST_API_SERVER=${REST_API_SERVER:-http://api.my-chat.localhost}
 ENV WEBSOCKET_API_SERVER=${WEBSOCKET_API_SERVER:-ws://api.my-chat.localhost}
-ENV NODE_ENV=production
 RUN npm run build
 
 FROM nginx:1.17.10-alpine

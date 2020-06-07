@@ -1,33 +1,36 @@
 'use strict';
 
-const { resolve } = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const path = require('path');
 const { EnvironmentPlugin } = require('webpack');
+const { CleanWebpackPlugin } = require('clean-webpack-plugin');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
+const merge = require('webpack-merge');
 
-const src = resolve(__dirname, 'src');
-const dist = resolve(__dirname, 'dist');
+const Mode = {
+  PRODUCTION: 'production',
+  DEVELOPMENT: 'development',
+};
 
-module.exports = {
-  mode: 'development',
-  devtool: 'eval-source-map',
-  devServer: {
-    contentBase: dist,
-    open: true,
-    port: 9000,
-    historyApiFallback: true,
+const Path = {
+  SRC: path.resolve(__dirname, 'src'),
+  DIST: path.resolve(__dirname, 'dist'),
+};
+
+
+const commonConfig = {
+  entry: {
+    app: './index.jsx',
   },
-  context: src,
+  output: {
+    path: Path.DIST,
+  },
+  context: Path.SRC,
   resolve: {
     extensions: ['.js', '.jsx'],
     alias: {
-      '@': src,
+      '@': Path.SRC,
       'react-dom': '@hot-loader/react-dom',
     },
-  },
-  entry: './index.jsx',
-  output: {
-    filename: 'main.js',
-    path: dist,
   },
   module: {
     rules: [
@@ -41,14 +44,55 @@ module.exports = {
     ],
   },
   plugins: [
+    new EnvironmentPlugin({
+      CLIENT_VERSION: process.env.npm_package_version,
+      REST_API_SERVER: 'http://localhost:3000',
+      WEBSOCKET_API_SERVER: 'ws://localhost:3000',
+    }),
     new HtmlWebpackPlugin({
       template: './index.html',
       lang: 'en',
       title: 'My chat',
     }),
-    new EnvironmentPlugin({
-      REST_API_SERVER: 'http://localhost:3000',
-      WEBSOCKET_API_SERVER: 'ws://localhost:3000',
-    }),
+    new CleanWebpackPlugin(),
   ],
+  optimization: {
+    splitChunks: {
+      chunks: 'initial',
+    },
+    runtimeChunk: {
+      name: 'manifest',
+    },
+  },
+};
+
+const developmentConfig = {
+  mode: Mode.DEVELOPMENT,
+  output: {
+    filename: '[name].js',
+  },
+  devtool: 'eval-source-map',
+  devServer: {
+    historyApiFallback: true,
+    hot: true,
+    open: true,
+    overlay: {
+      warnings: true,
+      errors: true,
+    },
+    port: 8080,
+  },
+};
+
+const productionConfig = {
+  mode: Mode.PRODUCTION,
+  output: {
+    filename: '[name].[chunkhash:4].js',
+  },
+};
+
+module.exports = () => {
+  const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
+  const config = isProduction ? productionConfig : developmentConfig;
+  return merge.smart(commonConfig, config);
 };

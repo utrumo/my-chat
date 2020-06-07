@@ -2,7 +2,7 @@ import express from 'express';
 import session from 'express-session';
 import createFileStore from 'session-file-store';
 
-const { CORS_ORIGIN = 'http://localhost:9000'} = process.env;
+const { CORS_ORIGIN = 'http://localhost:8080' } = process.env;
 const FILE_STORE_OPTIONS = {
   reapInterval: 60 * 30, // 30 minutes;
 };

@@ -4,8 +4,8 @@
   "description": "Client for my chat",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production webpack --mode production",
-    "watch": "webpack-dev-server --hot",
+    "build": "NODE_ENV=production webpack --progress --profile",
+    "watch": "webpack-dev-server",
     "eslint": "eslint --ext js --ext jsx .",
     "precommit": "lint-staged"
   },
@@ -35,6 +35,7 @@
     "@types/react-redux": "7.1.9",
     "babel-eslint": "10.1.0",
     "babel-loader": "8.1.0",
+    "clean-webpack-plugin": "3.0.0",
     "eslint": "6.8.0",
     "eslint-config-airbnb": "18.1.0",
     "eslint-import-resolver-webpack": "0.12.1",
@@ -46,6 +47,7 @@
     "lint-staged": "10.2.4",
     "webpack": "4.43.0",
     "webpack-cli": "3.3.11",
-    "webpack-dev-server": "3.11.0"
+    "webpack-dev-server": "3.11.0",
+    "webpack-merge": "4.2.2"
   }
 }
