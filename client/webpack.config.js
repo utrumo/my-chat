@@ -87,7 +87,7 @@ const developmentConfig = {
 const productionConfig = {
   mode: Mode.PRODUCTION,
   output: {
-    filename: '[name].[chunkhash:4].js',
+    filename: '[name].[contenthash:4].js',
   },
 };
 
