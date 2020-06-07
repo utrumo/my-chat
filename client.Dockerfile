@@ -1,4 +1,4 @@
-FROM node:14.4.0-slim as builder
+FROM node:14.4.0-buster-slim as builder
 WORKDIR /home/node/app
 RUN chown node:node .
 COPY --chown=node:node ./client/package*.json ./
