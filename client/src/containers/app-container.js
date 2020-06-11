@@ -1,5 +1,5 @@
-import { connect } from 'react-redux';
 import { hot } from 'react-hot-loader/root.js';
+import { connect } from 'react-redux';
 import { DataOperation } from '@/redux/redux.js';
 import App from '@/components/app/app.jsx';
 

@@ -1,10 +1,10 @@
 {
   "name": "chat",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Client for my chat",
   "private": true,
   "scripts": {
-    "build": "NODE_ENV=production webpack --progress --profile",
+    "build": "webpack --env.NODE_ENV=production --progress --profile",
     "watch": "webpack-dev-server",
     "eslint": "eslint --ext js --ext jsx .",
     "precommit": "lint-staged"

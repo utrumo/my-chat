@@ -16,11 +16,7 @@ const Path = {
   DIST: path.resolve(__dirname, 'dist'),
 };
 
-
 const commonConfig = {
-  entry: {
-    app: './index.jsx',
-  },
   output: {
     path: Path.DIST,
   },
@@ -29,7 +25,6 @@ const commonConfig = {
     extensions: ['.js', '.jsx'],
     alias: {
       '@': Path.SRC,
-      'react-dom': '@hot-loader/react-dom',
     },
   },
   module: {
@@ -68,8 +63,16 @@ const commonConfig = {
 
 const developmentConfig = {
   mode: Mode.DEVELOPMENT,
+  entry: {
+    app: ['react-hot-loader/patch', './index.jsx'],
+  },
   output: {
     filename: '[name].js',
+  },
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
   },
   devtool: 'eval-source-map',
   devServer: {
@@ -86,13 +89,23 @@ const developmentConfig = {
 
 const productionConfig = {
   mode: Mode.PRODUCTION,
+  entry: {
+    app: './index.jsx',
+  },
   output: {
     filename: '[name].[contenthash:4].js',
   },
+  devtool: 'nosources-source-map',
 };
 
-module.exports = () => {
+module.exports = (env) => {
+  if (env && env.NODE_ENV) {
+    process.env.NODE_ENV = env.NODE_ENV;
+  }
+
   const isProduction = process.env.NODE_ENV === Mode.PRODUCTION;
-  const config = isProduction ? productionConfig : developmentConfig;
-  return merge.smart(commonConfig, config);
+  const partConfig = isProduction ? productionConfig : developmentConfig;
+  const resultConfig = merge.smart(commonConfig, partConfig);
+
+  return resultConfig;
 };
