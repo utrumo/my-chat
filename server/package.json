@@ -18,7 +18,7 @@
   "author": "Petr Devyaterikov",
   "license": "Apache-2.0",
   "dependencies": {
-    "express": "4.17.1",
+    "express": "4.17.3",
     "express-session": "1.17.1",
     "session-file-store": "1.4.0",
     "ws": "7.3.0"
